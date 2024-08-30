@@ -1,0 +1,8 @@
+## Interface: 110002
+## Title: BetterBagsProfessionKnowledge
+## Version: 11.0.2-0
+## Notes: BetterBags filter plugin to create categories for profession knowledge items
+## Author: SpareSimian
+## Dependency: BetterBags
+
+Main.lua
