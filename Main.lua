@@ -29,6 +29,7 @@ categories:RegisterCategoryFunction("ProfessionKnowledgeFilter", function (data)
       if v.type == 0 then
          -- we cheat and assume expansion is two words. Fix pattern if that assumption breaks with a future expansion
          local found, _, expansion, profession, amount = string.find(v.leftText, "Use: Study to increase your (%a+ %a+) (%a+) Knowledge by (%d+)")
+         -- addon:Print(data.itemInfo.itemName .. ": '" .. v.leftText .. "' " .. tostring(found))
          if found then
             return "|cff" .. addon.color .. "Knowledge - " .. profession .. " - " .. expansion .. "|r"
          end
