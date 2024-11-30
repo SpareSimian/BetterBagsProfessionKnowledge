@@ -28,6 +28,7 @@ end
 
 categories:RegisterCategoryFunction("ProfessionKnowledgeFilter", function (data)
 
+   -- addMiss(data, "testing")
 
    -- avoid tooltip scan for older stuff
    if data.itemInfo.expacID < LE_EXPANSION_DRAGONFLIGHT then
@@ -38,22 +39,21 @@ categories:RegisterCategoryFunction("ProfessionKnowledgeFilter", function (data)
    local tooltipInfo = C_TooltipInfo.GetOwnedItemByID(data.itemInfo.itemID)
    local found = nil
 
-   local lastTooltipLine = "no tooltip lines"
    for k,v in pairs(tooltipInfo.lines) do
-      if (v.type == 0) or (v.type == 20) then
+      if (v.type == 0) or (v.type == 20) or (v.type == 23) or (v.type == 29) then
          -- we cheat and assume expansion is two words. Fix pattern if that assumption breaks with a future expansion
          local found, _, expansion, profession, amount = string.find(v.leftText, "Use: Study to increase your (%a+ %a+) (%a+) Knowledge by (%d+)")
          -- addon:Print(data.itemInfo.itemName .. ": '" .. v.leftText .. "' " .. tostring(found))
          if found then
             return "|cff" .. addon.color .. "Knowledge - " .. profession .. " - " .. expansion .. "|r"
-         else
-            lastTooltipLine = v.leftText
          end
-      else
-         lastTooltipLine = "wrong type: " .. tostring(v.type)
       end
    end
 
-   addMiss(data, lastTooltipLine)
+   if debugging then
+      -- dump all the tooltip lines
+      addMiss(data, tooltipInfo)
+   end
+
    return nil
 end)
